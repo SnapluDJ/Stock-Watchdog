@@ -22,7 +22,20 @@ angular.module('stockDogApp')
 
         $scope.watchlists = WatchlistService.query();
 
-        $scope.
+        $scope.showModal = function () {
+          addListModal.$promise.then(addListModal.show);
+        };
+
+        $scope.createList = function () {
+          WatchlistService.save($scope.watchlist);
+          addListModal.hide();
+          $scope.watchlist = {};
+        };
+
+        $scope.deleteList = function (list) {
+          WatchlistService.remove(list);
+          $location.path('/');
+        };
       }
     };
   });
