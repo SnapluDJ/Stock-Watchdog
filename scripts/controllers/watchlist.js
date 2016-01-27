@@ -27,7 +27,7 @@ angular.module('stockDogApp')
     $scope.addStock = function () {
       $scope.watchlist.addStock({
         listId: $routeParams.listId,
-        company: $stocks.newStock.company,
+        company: $scope.newStock.company,
         shares: $scope.newStock.shares
       });
 
