@@ -20,8 +20,19 @@ angular.module('stockDogApp')
 				QuoteService.register($scope.stock);
 
 				$scope.$on('$destroy', function () {
-					
-				})
+					stockTableCtrl.removeRow($scope);
+					QuoteService.deregister($scope.stock);
+				});
+
+				if ($scope.isLast) {
+					$timeout(QuoteService.fetch);
+				}
+
+				$scope.$watch('stock.shares', function () {
+					$scope.stock.marketValue = $scope.stock.shares * $scope.stock.lastPrice;
+					$scope.stock.dayChange = $scope.stock.shares * parseFloat($scope.stock.change);
+					$scope.stock.save();
+				});
 			}
-		}
-	})
+		};
+	});
